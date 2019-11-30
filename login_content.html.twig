@@ -1,0 +1,40 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+	{% if csrf_token %}
+	<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+	{% endif %}
+	{% if error %}
+	<div class='alert alert-danger'>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+	{% endif %}
+	<div class="form-group">
+		<label for="name" style="color: #666;">Username / Email</label>
+		<input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label for="name" style="color: #666;">Password</label>
+		<input type="password" id="password" name="_password" required="required" class="form-control" />
+	</div>
+
+	<div class="checkbox">
+		<label>
+			<input type="checkbox" value="on" checked="checked" />
+			{{ 'security.login.remember_me'|trans }}
+		</label>
+	</div>
+
+	<div id="form-messages"></div>
+
+	<div class="text-center">
+		<button type="submit" class="btn btn-success">Login With Username</button>
+		<br /><br /> - or - <br /><br />
+		<a class="btn btn-primary" href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}"><i class="fa fa-facebook"></i> &nbsp;&nbsp;&nbsp; Login With Facebook</a>
+	</div>
+
+	<hr />
+
+	<div class="text-center"><a href="{{ path('fos_user_registration_register') }}">Sign Up</a></div>
+
+</form>
+

@@ -1,0 +1,71 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Firecloud</title>
+
+	<!-- Favicon -->
+	{# <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"> #}
+	{# <link rel="icon" href="images/favicon.ico" type="image/x-icon"> #}
+	<!-- Google Web Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Lato:300,400,700,900" rel="stylesheet">
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- Color -->
+	<link rel="stylesheet" href="/css/red.css">
+
+	<!-- Custom Stylesheet -->
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/responsive.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<style>
+		body {
+			background: #333;
+		}
+		.section-header img {
+			max-width: 95%;
+		}
+	</style>
+
+</head>
+<body>
+
+	<section class="login" id="login">
+		<div class="container">
+
+			<div class="section-header">
+				<div style="text-align: center;"><img src="/images/logo-full.png" /></div>
+				<br />
+				<h2>User Portal</h2>
+			</div>
+
+			<div class="login-wrapper">
+				<div style="max-width: 500px; margin: 0 auto; color: #666;" class="well">
+
+					{% if app.request.hasPreviousSession %}
+						{% for type, messages in app.session.flashBag.all %}
+							{% for message in messages %}
+								<div class="alert alert-{{ type }}">
+									{{ message|trans({}, 'FOSUserBundle') }}
+								</div>
+							{% endfor %}
+						{% endfor %}
+					{% endif %}
+
+					{% block fos_user_content %}
+					{% endblock fos_user_content %}
+
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+</body>
+</html>

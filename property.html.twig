@@ -1,0 +1,129 @@
+<div class="section" data-init-function="initProperty">
+<div class="form-group">
+	<label>Home Type</label>
+	<select name="homeType" class="form-control validate" id="home-type-select">
+		<option></option>
+		{% for val in ['Single Family', 'Townhouse', 'Apartment Complex'] %}
+			<option value="{{ val }}" {% if val == location.homeType %}selected="selected"{% endif %}>
+				{{ val }}
+			</option>
+		{% endfor %}
+	</select>
+</div>
+
+<div class="form-group" {% if location.homeType != 'Single Family' %}style="display:none;"{% endif %} id="home-levels">
+	<label>Home Levels</label>
+	<select name="levels" class="form-control validate">
+		<option></option>
+		{% for i in 1..100 %}
+			<option value="{{ i }}" {% if i|number_format == location.levels|number_format %}selected="selected"{% endif %}>{{ i }}</option>
+		{% endfor %}
+	</select>
+</div>
+
+<div class="form-group" {% if location.homeType != 'Apartment Complex' %} style="display:none;"{% endif %} id="which-floor">
+	<label>Which floor do you live on?</label>
+	<select name="floor" class="form-control validate">
+		<option></option>
+		{% for i in 1..100 %}
+			<option value="{{ i }}" {% if i|number_format == location.floor|number_format %}selected="selected"{% endif %}>{{ i }}</option>
+		{% endfor %}
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Balcony Access</label>
+	<select name="balconyAccess" class="form-control validate">
+		<option></option>
+		<option value="1" {% if location.balconyAccess == 1 %}selected="selected"{% endif %}>Yes</option>
+		<option value="0" {% if location.balconyAccess == '0' %}selected="selected"{% endif %}>No</option>
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Number of Bedrooms</label>
+	<select name="bedrooms" class="form-control validate">
+		<option></option>
+		{% for i in 1..20 %}
+			<option value="{{ i }}" {% if i|number_format == location.bedrooms|number_format %}selected="selected"{% endif %}>{{ i }}</option>
+		{% endfor %}
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Basement</label>
+	<select name="basement" class="form-control validate">
+		<option></option>
+		<option value="1" {% if location.basement == 1 %}selected="selected"{% endif %}>Yes</option>
+		<option value="0" {% if location.basement == '0' %}selected="selected"{% endif %}>No</option>
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Solar Panels</label>
+	<select name="solarPanels" class="form-control validate">
+		<option></option>
+		<option value="1" {% if location.solarPanels == 1 %}selected="selected"{% endif %}>Yes</option>
+		<option value="0" {% if location.solarPanels == '0' %}selected="selected"{% endif %}>No</option>
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Fireplace</label>
+	<select name="fireplace" class="form-control validate">
+		<option></option>
+		<option value="1" {% if location.fireplace == 1 %}selected="selected"{% endif %}>Yes</option>
+		<option value="0" {% if location.fireplace == '0' %}selected="selected"{% endif %}>No</option>
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Potentially Hazardous Materials</label>
+	<textarea name="hazardousMaterials" class="form-control validate">{{ location.hazardousMaterials }}</textarea>
+</div>
+
+<div class="form-group">
+	<label>Gated Community</label>
+	<select name="gatedCommunity" class="form-control validate" id="gated-community-select">
+		<option></option>
+		<option value="1" {% if location.gatedCommunity == 1 %}selected="selected"{% endif %}>Yes</option>
+		<option value="0" {% if location.gatedCommunity == '0' %}selected="selected"{% endif %}>No</option>
+	</select>
+</div>
+
+<div class="form-group" {% if location.gatedCommunity != 1 %}style="display:none;"{% endif %} id="gate-code">
+	<label>Gate Code</label>
+	<input type="text" name="gateCode" value="{{ location.gateCode }}" class="form-control validate" />
+</div>
+</div>
+
+<script>
+	var initProperty = function() {
+		$(document).on('change', '#home-type-select', function() {
+			switch ($(this).find(':selected').val()) {
+				case 'Apartment Complex':
+					$('#home-levels').slideUp('fast');
+					$('#which-floor').slideDown('fast');
+					break;
+				default:
+					$('#which-floor').slideUp('fast');
+					$('#home-levels').slideDown('fast');
+					break;
+			}
+		});
+
+		$(document).on('change', '#gated-community-select', function() {
+			switch($(this).find(':selected').val()) {
+				case "1":
+					$('#gate-code').slideDown();
+					break;
+				default:
+				case "0":
+					$('#gate-code').slideUp();
+					break;
+			}
+		});
+
+		console.log('initProperty');
+	};
+</script>

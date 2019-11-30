@@ -1,0 +1,122 @@
+{% if context is defined and context == 'signup' %}
+	<div class="alert alert-info">
+		You are <strong>not</strong> required to list occupants at this time. If you would like to add them later, click Save to continue to the next section.
+	</div>
+{% endif %}
+<div id="occupants">
+{% for occupant in location.occupants %}
+	<div class="occupant">
+		<div class="form-group">
+			<label>Occupant Name</label>
+			<input type="text" name="name" value="{{ occupant['name'] }}" class="form-control" />
+		</div>
+
+		<div class="form-group">
+			<label>DOB</label>
+			<select name="dob-M">
+				<option value="">Month</option>
+				<option value="">-----</option>
+				<option value="01" {% if occupant['dob-M'] == '01' %}selected="selected"{% endif %}>January</option>
+				<option value="02" {% if occupant['dob-M'] == '02' %}selected="selected"{% endif %}>February</option>
+				<option value="03" {% if occupant['dob-M'] == '03' %}selected="selected"{% endif %}>March</option>
+				<option value="04" {% if occupant['dob-M'] == '04' %}selected="selected"{% endif %}>April</option>
+				<option value="05" {% if occupant['dob-M'] == '05' %}selected="selected"{% endif %}>May</option>
+				<option value="06" {% if occupant['dob-M'] == '06' %}selected="selected"{% endif %}>June</option>
+				<option value="07" {% if occupant['dob-M'] == '07' %}selected="selected"{% endif %}>July</option>
+				<option value="08" {% if occupant['dob-M'] == '08' %}selected="selected"{% endif %}>August</option>
+				<option value="09" {% if occupant['dob-M'] == '09' %}selected="selected"{% endif %}>September</option>
+				<option value="10" {% if occupant['dob-M'] == '10' %}selected="selected"{% endif %}>October</option>
+				<option value="11" {% if occupant['dob-M'] == '11' %}selected="selected"{% endif %}>November</option>
+				<option value="12" {% if occupant['dob-M'] == '12' %}selected="selected"{% endif %}>December</option>
+			</select>
+			<select name="dob-D">
+				<option value="">Day</option>
+				<option value="">---</option>
+				{% for day in 01..31 %}
+					<option value="{{ "%02d"|format(day) }}" {% if occupant['dob-D'] == "%02d"|format(day) %}selected="selected"{% endif %}>{{ "%02d"|format(day) }}</option>
+				{% endfor %}
+			</select>
+			<select name="dob-Y">
+				<option value="">Year</option>
+				<option value="">---</option>
+				{% set thisYear = "now"|date('Y') %}
+				{% set prevYear = thisYear - 120 %}
+				{% for year in thisYear..prevYear %}
+					<option value="{{ year }}" {% if occupant['dob-Y'] == "%02d"|format(year) %}selected="selected"{% endif %}>{{ year }}</option>
+				{% endfor %}
+			</select>
+		</div>
+	</div>
+{% endfor %}
+
+{% if location.occupants|length < 1 %}
+	<h4 id="no-occupants-message">No Occupants</h4>
+{% endif %}
+</div>
+
+<div id="occupant-template" class="hidden">
+	<div class="form-group">
+		<label>Occupant Name</label>
+		<input type="text" name="name" value="" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label>DOB</label>
+		<select name="dob-M">
+			<option value="">Month</option>
+			<option value="">-----</option>
+			<option value="01">January</option>
+			<option value="02">February</option>
+			<option value="03">March</option>
+			<option value="04">April</option>
+			<option value="05">May</option>
+			<option value="06">June</option>
+			<option value="07">July</option>
+			<option value="08">August</option>
+			<option value="09">September</option>
+			<option value="10">October</option>
+			<option value="11">November</option>
+			<option value="12">December</option>
+		</select>
+		<select name="dob-D">
+			<option value="">Day</option>
+			<option value="">---</option>
+				{% for day in 1..31 %}
+					<option value="{{ "%02d"|format(day) }}">{{ "%02d"|format(day) }}</option>
+				{% endfor %}
+		</select>
+		<select name="dob-Y">
+			<option value="">Year</option>
+			<option value="">---</option>
+			{% set thisYear = "now"|date('Y') %}
+			{% set prevYear = thisYear - 120 %}
+			{% for year in thisYear..prevYear %}
+				<option value="{{ year }}">{{ year }}</option>
+			{% endfor %}
+		</select>
+	</div>
+</div>
+
+<a class="btn btn-sm btn-default" id="add-occupant-button">Add Another Occupant</a>
+
+<hr />
+
+<div class="form-group">
+	<label>Medical Concerns</label>
+	<textarea name="medicalConcerns" class="form-control">{{ location.medicalConcerns }}</textarea>
+</div>
+
+<div class="form-group">
+	<label># Pets</label>
+	<select name="pets" class="form-control">
+		{% for i in 0..5 %}
+			<option value="{{ i }}" {% if i|number_format == location.pets|number_format %}selected="selected"{% endif %}>{{ i }}</option>
+		{% endfor %}
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Pets - Details</label>
+	<textarea name="petsDetails" class="form-control">{{ location.petsDetails }}</textarea>
+</div>
+

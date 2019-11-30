@@ -1,0 +1,56 @@
+<div class="form-group">
+	<label>Square Feet</label>
+	<input type="number" name="squareFeet" value="{{ location.squareFeet }}" class="form-control validate" />
+</div>
+
+<div class="form-group">
+	<label>Improvement Type</label>
+	<input type="text" name="improvementType" value="{{ location.improvementType }}" class="form-control validate" />
+</div>
+
+<div class="form-group">
+	<label>Foundation</label>
+	<input type="text" name="foundation" value="{{ location.foundation }}" class="form-control validate" />
+</div>
+
+<div class="form-group">
+	<label>Year Built</label>
+	<select name="yearBuilt" class="form-control validate">
+		<option></option>
+		{% for i in 'now'|date('Y')..1900 %}
+			<option value="{{ i }}" {% if i|number_format == location.yearBuilt|number_format %}selected="selected"{% endif %}>{{ i }}</option>
+		{% endfor %}
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Quality</label>
+	<select name="quality" class="form-control validate">
+		<option></option>
+		{% for val in ['Poor', 'Fair', 'Average', 'Above Average', 'Excellent'] %}
+			<option value="{{ val }}" {% if val == location.quality %}selected="selected"{% endif %}>
+				{{ val }}
+			</option>
+		{% endfor %}
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Interior</label>
+	<input type="text" name="interior" value="{{ location.interior }}" class="form-control validate" />
+</div>
+
+<div class="form-group">
+	<label>Exterior</label>
+	<input type="text" name="exterior" value="{{ location.exterior }}" class="form-control validate" />
+</div>
+
+<div class="form-group">
+	<label>Roof Type</label>
+	<input type="text" name="roofType" value="{{ location.roofType }}" class="form-control validate" />
+</div>
+
+<div class="form-group">
+	<label>Roof Cover</label>
+	<input type="text" name="roofCover" value="{{ location.roofCover }}" class="form-control validate" />
+</div>

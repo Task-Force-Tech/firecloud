@@ -1,0 +1,77 @@
+<div class="form-group">
+	<label>Address</label>
+	<input type="text" name="address" value="{{ location.address }}" class="form-control validate" />
+</div>
+
+<div class="form-group">
+	<label>Address 2</label>
+	<input type="text" name="address2" value="{{ location.address2 }}" class="form-control" data-no-validate="true" />
+</div>
+
+<div class="form-group">
+	<label>City</label>
+	<input type="text" name="city" value="{{ location.city }}" class="form-control validate" />
+</div>
+
+<div class="form-group">
+	<label>State</label>
+	<select class="form-control validate" name="state">
+		<option value="">Select one...</option>
+		<option value="AL" {% if location.state == 'AL' %}selected="selected"{% endif %}>Alabama</option>
+		<option value="AK" {% if location.state == 'AK' %}selected="selected"{% endif %}>Alaska</option>
+		<option value="AZ" {% if location.state == 'AZ' %}selected="selected"{% endif %}>Arizona</option>
+		<option value="AR" {% if location.state == 'AR' %}selected="selected"{% endif %}>Arkansas</option>
+		<option value="CA" {% if location.state == 'CA' %}selected="selected"{% endif %}>California</option>
+		<option value="CO" {% if location.state == 'CO' %}selected="selected"{% endif %}>Colorado</option>
+		<option value="CT" {% if location.state == 'CT' %}selected="selected"{% endif %}>Connecticut</option>
+		<option value="DE" {% if location.state == 'DE' %}selected="selected"{% endif %}>Delaware</option>
+		<option value="DC" {% if location.state == 'DC' %}selected="selected"{% endif %}>District Of Columbia</option>
+		<option value="FL" {% if location.state == 'FL' %}selected="selected"{% endif %}>Florida</option>
+		<option value="GA" {% if location.state == 'GA' %}selected="selected"{% endif %}>Georgia</option>
+		<option value="HI" {% if location.state == 'HI' %}selected="selected"{% endif %}>Hawaii</option>
+		<option value="ID" {% if location.state == 'ID' %}selected="selected"{% endif %}>Idaho</option>
+		<option value="IL" {% if location.state == 'IL' %}selected="selected"{% endif %}>Illinois</option>
+		<option value="IN" {% if location.state == 'IN' %}selected="selected"{% endif %}>Indiana</option>
+		<option value="IA" {% if location.state == 'IA' %}selected="selected"{% endif %}>Iowa</option>
+		<option value="KS" {% if location.state == 'KS' %}selected="selected"{% endif %}>Kansas</option>
+		<option value="KY" {% if location.state == 'KY' %}selected="selected"{% endif %}>Kentucky</option>
+		<option value="LA" {% if location.state == 'LA' %}selected="selected"{% endif %}>Louisiana</option>
+		<option value="ME" {% if location.state == 'ME' %}selected="selected"{% endif %}>Maine</option>
+		<option value="MD" {% if location.state == 'MD' %}selected="selected"{% endif %}>Maryland</option>
+		<option value="MA" {% if location.state == 'MA' %}selected="selected"{% endif %}>Massachusetts</option>
+		<option value="MI" {% if location.state == 'MI' %}selected="selected"{% endif %}>Michigan</option>
+		<option value="MN" {% if location.state == 'MN' %}selected="selected"{% endif %}>Minnesota</option>
+		<option value="MS" {% if location.state == 'MS' %}selected="selected"{% endif %}>Mississippi</option>
+		<option value="MO" {% if location.state == 'MO' %}selected="selected"{% endif %}>Missouri</option>
+		<option value="MT" {% if location.state == 'MT' %}selected="selected"{% endif %}>Montana</option>
+		<option value="NE" {% if location.state == 'NE' %}selected="selected"{% endif %}>Nebraska</option>
+		<option value="NV" {% if location.state == 'NV' %}selected="selected"{% endif %}>Nevada</option>
+		<option value="NH" {% if location.state == 'NH' %}selected="selected"{% endif %}>New Hampshire</option>
+		<option value="NJ" {% if location.state == 'NJ' %}selected="selected"{% endif %}>New Jersey</option>
+		<option value="NM" {% if location.state == 'NM' %}selected="selected"{% endif %}>New Mexico</option>
+		<option value="NY" {% if location.state == 'NY' %}selected="selected"{% endif %}>New York</option>
+		<option value="NC" {% if location.state == 'NC' %}selected="selected"{% endif %}>North Carolina</option>
+		<option value="ND" {% if location.state == 'ND' %}selected="selected"{% endif %}>North Dakota</option>
+		<option value="OH" {% if location.state == 'OH' %}selected="selected"{% endif %}>Ohio</option>
+		<option value="OK" {% if location.state == 'OK' %}selected="selected"{% endif %}>Oklahoma</option>
+		<option value="OR" {% if location.state == 'OR' %}selected="selected"{% endif %}>Oregon</option>
+		<option value="PA" {% if location.state == 'PA' %}selected="selected"{% endif %}>Pennsylvania</option>
+		<option value="RI" {% if location.state == 'RI' %}selected="selected"{% endif %}>Rhode Island</option>
+		<option value="SC" {% if location.state == 'SC' %}selected="selected"{% endif %}>South Carolina</option>
+		<option value="SD" {% if location.state == 'SD' %}selected="selected"{% endif %}>South Dakota</option>
+		<option value="TN" {% if location.state == 'TN' %}selected="selected"{% endif %}>Tennessee</option>
+		<option value="TX" {% if location.state == 'TX' %}selected="selected"{% endif %}>Texas</option>
+		<option value="UT" {% if location.state == 'UT' %}selected="selected"{% endif %}>Utah</option>
+		<option value="VT" {% if location.state == 'VT' %}selected="selected"{% endif %}>Vermont</option>
+		<option value="VA" {% if location.state == 'VA' %}selected="selected"{% endif %}>Virginia</option>
+		<option value="WA" {% if location.state == 'WA' %}selected="selected"{% endif %}>Washington</option>
+		<option value="WV" {% if location.state == 'WV' %}selected="selected"{% endif %}>West Virginia</option>
+		<option value="WI" {% if location.state == 'WI' %}selected="selected"{% endif %}>Wisconsin</option>
+		<option value="WY" {% if location.state == 'WY' %}selected="selected"{% endif %}>Wyoming</option>
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Zip</label>
+	<input type="text" name="zip" value="{{ location.zip }}" class="form-control validate" />
+</div>

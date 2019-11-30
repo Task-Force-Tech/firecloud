@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block page_stylesheets %}
+	<link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+{% endblock %}
+{% block page_stylesheet %}
+<style>
+	#locations-table tr {
+		cursor: pointer;
+	}
+</style>
+{% endblock %}
+
+{% block page_content %}
+
+	{% if locations|length > 0 %}
+		<div class="well well-sm">
+			Locations highlighted in <span class="yellow"><strong>yellow</strong></span> have not completed signup.<br />
+			Locations highlighted in <span class="red"><strong>red</strong></span> have completed signup but have not paid.
+		</div>
+
+		<table class="table table-striped table-bordered table-hover" id="locations-table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>User</th>
+					<th>Address</th>
+					<th>Created</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for location in locations %}
+					{% set rowClass = (location.hasPayment) ? '' : 'danger' %}
+					{% set rowClass = (location.completedSignup) ? rowClass : 'warning' %}
+					<tr class="{{ rowClass }}">
+						<td data-class="expand">{{ location.displayName }}</td>
+						<td data-class="expand">{% if location.user.email is defined %}{{ location.user.email }}{% endif %}</td>
+						<td data-class="expand">{{ location.displayAddress }}</td>
+						<td data-class="expand">{{ location.createdDate|date('j-M-Y') }}</td>
+						<td data-class="expand" class="text-center">
+							<a href="{{ path('location', {locationId: location.id}) }}" class="btn btn-xs btn-primary view-location-button">View</a>
+							<a href="#" class="btn btn-xs btn-danger delete-location-button" data-location-id="{{ location.id }}">Delete</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	{% else %}
+
+		No locations have been entered
+
+	{% endif %}
+
+{% endblock %}
+
+
+
+{% block page_javascripts %}
+	<script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/vendor/datatables.responsive.min.js"></script>
+{% endblock %}
+
+{% block page_javascript %}
+<script>
+	$(document).ready(function() {
+		/* // DOM Position key index //
+
+		l - Length changing (dropdown)
+		f - Filtering input (search)
+		t - The Table! (datatable)
+		i - Information (records)
+		p - Pagination (paging)
+		r - pRocessing
+		< and > - div elements
+		<"#id" and > - div with an id
+		<"class" and > - div with a class
+		<"#id.class" and > - div with an id and class
+
+		Also see: http://legacy.datatables.net/usage/features
+		*/
+
+		/* BASIC ;*/
+		var responsiveHelper_dt_basic = undefined;
+
+		var breakpointDefinition = {
+			tablet: 1024,
+			phone: 480
+		};
+
+		$('#locations-table').dataTable({
+			'sDom': "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>" + "t" + "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
+			'autoWidth': true,
+			"preDrawCallback": function() {
+				// Initialize the responsive datatables helper once.
+				if (!responsiveHelper_dt_basic) {
+					responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#locations-table'), breakpointDefinition);
+				}
+			},
+			'rowCallback': function(nRow) {
+				responsiveHelper_dt_basic.createExpandIcon(nRow);
+			},
+			'drawCallback': function(oSettings) {
+				responsiveHelper_dt_basic.respond();
+			},
+			'initComplete': function(settings) {
+				$(this).closest('section').removeClass('hidden');
+				this.fnAdjustColumnSizing();
+			}
+		});
+
+		// Go to record on row click
+		$(document).on('click', '#locations-table tr', function(e) {
+			var $row = $(this);
+			var $btn = $row.find('.view-location-button');
+			var url = $btn.attr('href');
+			if (url) {
+				window.location.href = url;
+			}
+		});
+
+		$(document).on('click', '.delete-location-button', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var doIt = confirm('Are you sure you want to delete this location?');
+
+			if (doIt) {
+				var url = Routing.generate('location_delete', {locationId: $(this).data('locationId')});
+				$.get(url, function(response) {
+					if (response.success) {
+						location.reload();
+					} else {
+						alert(response.error);
+					}
+				});
+			}
+		});
+	});
+
+</script>
+{% endblock %}

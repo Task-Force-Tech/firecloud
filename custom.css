@@ -1,0 +1,32 @@
+/* Contact */
+.login {
+	padding: 120px 0;
+	position: relative;
+	overflow: hidden;
+	color: #666;
+}
+
+.login .section-header h2, .login .section-header h2:before {
+	color: #EF4456;
+}
+
+.login .login-details h3 {
+	margin: 0 0 15px 0;
+	color: #666;
+}
+
+.red {
+	color: red;
+}
+
+.yellow {
+	color: #ffc553;
+}
+
+.navbar-brand {
+	padding: 5px 15px;
+}
+
+.validate.warning {
+	border: 1px solid red;
+}
